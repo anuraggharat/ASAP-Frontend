@@ -4,3 +4,7 @@
   flex-direction: column !important;
   align-items: center !important;
 }
+.small-text {
+  font-size: 0.8rem;
+  margin: 0px !important;
+}
