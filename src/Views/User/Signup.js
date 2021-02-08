@@ -1,9 +1,37 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import image from "../../Assets/signupuser.svg";
 import MinorComponent from "../../Components/MinorComponent";
 
 export default function Signup() {
+  var options = {
+    enableHighAccuracy: true,
+    timeout: 5000,
+    maximumAge: 0,
+  };
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(
+      function (position) {
+        console.log(position);
+        console.log("Latitude is :", position.coords.latitude);
+        console.log("Longitude is :", position.coords.longitude);
+      },
+      handleLocationError,
+      options
+    );
+  }, []);
+  function handleLocationError(error) {
+    switch (error.code) {
+      case 3:
+        // ...deal with timeout
+        break;
+      case 2:
+        // ...device can't get data
+        break;
+      case 1:
+      // ...user said no ☹️
+    }
+  }
   return (
     <>
       <div className="row min-vh-100 w-100">
@@ -75,3 +103,7 @@ export default function Signup() {
     </>
   );
 }
+
+// https://www.google.com/maps/place/18%C2%B039'21.0%22N+72%C2%B053'30.3%22E/@18.6558337,72.8895461,17z/data=!3m1!4b1!4m5!3m4!1s0x0:0x0!8m2!3d18.6558286!4d72.8917348
+// https://www.google.com/maps/dir/?api=1&latitude=18.6558286&longitude=72.8917348
+// https://www.google.com/maps/search/?api=1&query=18.6558286,72.8917348

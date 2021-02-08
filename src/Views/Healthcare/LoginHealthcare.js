@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import image from "../../Assets/loginuser.svg";
+import image from "../../Assets/loginhealthcare.svg";
 import MinorComponent from "../../Components/MinorComponent";
 
 export default function LoginHealthcare() {

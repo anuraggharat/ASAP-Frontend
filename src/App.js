@@ -1,5 +1,4 @@
 import "./App.css";
-import Navbar from "./Components/Navbar";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Home from "./Views/Home";
 import Login from "./Views/User/Login";
@@ -8,6 +7,7 @@ import Dashboard from "./Views/User/Dashboard";
 import LoginHealthcare from "./Views/Healthcare/LoginHealthcare";
 import SignupHealthcare from "./Views/Healthcare/SignupHealthcare";
 import DashboardHealthcare from "./Views/Healthcare/DashboardHealthcare";
+import { useEffect } from "react";
 
 function App() {
   return (
