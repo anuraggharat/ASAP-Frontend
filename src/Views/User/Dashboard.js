@@ -1,7 +1,70 @@
-import React from "react";
+import React, { useState } from "react";
+import { useEffect } from "react";
 import Navbar from "../../Components/Navbar";
 
 export default function Dashboard() {
+  const [location, setLocation] = useState({
+    latitude: "",
+    longitude: "",
+  });
+  const [error, setError] = useState("");
+
+  var options = {
+    enableHighAccuracy: true,
+    timeout: 5000,
+    maximumAge: 0,
+  };
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(
+      async (position) => {
+        console.log(position);
+        console.log("Latitude is :", position.coords.latitude);
+        console.log("Longitude is :", position.coords.longitude);
+        await setLocation({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+        });
+      },
+      handleLocationError,
+      options
+    );
+  }, []);
+  function handleLocationError(error) {
+    switch (error.code) {
+      case 3:
+        setError("Timeout! Please refresh your page!");
+        alert(error);
+        break;
+      case 2:
+        // ...device can't get data
+        setError("ASAP cant access your location");
+        alert(error);
+        break;
+      case 1:
+        // ...user said no ☹️
+        setError("Please provide access to your location!");
+        alert(error);
+    }
+  }
+  console.log(process.env);
+
+  const getLocation = async () => {
+    await fetch(
+      "https://maps.googleapis.com/maps/api/geocode/json?address=" +
+        location.latitude +
+        "," +
+        location.longitude +
+        "&key=" +
+        process.env.REACT_APP_KEY
+    )
+      .then((response) => response.json())
+      .then((responseJson) => {
+        console.log(
+          "ADDRESS GEOCODE is BACK!! => " + JSON.stringify(responseJson)
+        );
+      });
+  };
+
   return (
     <div>
       <Navbar />
@@ -36,11 +99,18 @@ export default function Dashboard() {
                   <h5>Gender</h5>
                   <p>Male</p>
                 </div>
+                <div className="col-6 mt-3">
+                  <h5>Current Location</h5>
+                  <p className="mb-0">{location.latitude}</p>
+                  <p className="mt-0">{location.longitude}</p>
+                  {process.env.REACT_APP_KEY}
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+      <button onClick={getLocation}>Get Location</button>
     </div>
   );
 }

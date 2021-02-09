@@ -4,34 +4,6 @@ import image from "../../Assets/signupuser.svg";
 import MinorComponent from "../../Components/MinorComponent";
 
 export default function Signup() {
-  var options = {
-    enableHighAccuracy: true,
-    timeout: 5000,
-    maximumAge: 0,
-  };
-  useEffect(() => {
-    navigator.geolocation.getCurrentPosition(
-      function (position) {
-        console.log(position);
-        console.log("Latitude is :", position.coords.latitude);
-        console.log("Longitude is :", position.coords.longitude);
-      },
-      handleLocationError,
-      options
-    );
-  }, []);
-  function handleLocationError(error) {
-    switch (error.code) {
-      case 3:
-        // ...deal with timeout
-        break;
-      case 2:
-        // ...device can't get data
-        break;
-      case 1:
-      // ...user said no ☹️
-    }
-  }
   return (
     <>
       <div className="row min-vh-100 w-100">
