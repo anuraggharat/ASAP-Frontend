@@ -110,7 +110,7 @@ export default function Dashboard() {
           </div>
         </div>
       </div>
-      <button onClick={getLocation}>Get Location</button>
+      <button onClick={getLocation}>Get Location of user</button>
     </div>
   );
 }
