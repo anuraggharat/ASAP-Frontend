@@ -2,8 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 import image from "../../Assets/signuphealthcare.svg";
 import MinorComponent from "../../Components/MinorComponent";
+import { registerUser } from "../../Redux/Actions/healthcare";
+import { connect } from "react-redux";
+import { toast } from "react-toastify";
 
-export default function SignupHealthcare() {
+function SignupHealthcare({ registerUser, isLoggedIn, user }) {
   return (
     <>
       <div className="row min-vh-100 w-100">
@@ -78,3 +81,8 @@ export default function SignupHealthcare() {
     </>
   );
 }
+const mapStateToProps = (state) => ({
+  isLoggedIn: state.user.isLoggedIn,
+  user: state.user.user,
+});
+export default connect(mapStateToProps, { registerUser })(SignupHealthcare);

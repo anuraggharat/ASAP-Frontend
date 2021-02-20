@@ -10,6 +10,8 @@ import DashboardHealthcare from "./Views/Healthcare/DashboardHealthcare";
 import { useEffect } from "react";
 import { Provider } from "react-redux";
 import store from "./Redux/store";
+import { ToastContainer, toast } from "react-toastify";
+toast.configure();
 
 function App() {
   return (

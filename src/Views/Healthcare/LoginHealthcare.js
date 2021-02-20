@@ -2,8 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import image from "../../Assets/loginhealthcare.svg";
 import MinorComponent from "../../Components/MinorComponent";
+import { loginUser } from "../../Redux/Actions/healthcare";
+import { connect } from "react-redux";
+import { toast } from "react-toastify";
 
-export default function LoginHealthcare() {
+function LoginHealthcare({ loginUser, isLoggedIn, user }) {
   const [account, setAccount] = useState();
   const [values, setValues] = useState({
     email: "",
@@ -19,9 +22,23 @@ export default function LoginHealthcare() {
   };
 
   //value submission function
-  const submitValues = (e) => {
+  const submitValues = async (e) => {
+    await setLoading(true);
     e.preventDefault();
-    console.log("Submittted values", values);
+    if (!email && !password) {
+      toast.error("Values can't be empty");
+      return;
+    }
+    await loginUser(values)
+      .then(async (res) => {
+        if (res.success) {
+          await toast.success(res.message);
+        } else {
+          toast.error(res.error);
+        }
+      })
+      .catch((err) => toast.warning(err));
+    setLoading(false);
   };
   return (
     <>
@@ -75,3 +92,8 @@ export default function LoginHealthcare() {
     </>
   );
 }
+const mapStateToProps = (state) => ({
+  isLoggedIn: state.user.isLoggedIn,
+  user: state.user.user,
+});
+export default connect(mapStateToProps, { loginUser })(LoginHealthcare);

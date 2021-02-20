@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import image from "../../Assets/signupuser.svg";
 import MinorComponent from "../../Components/MinorComponent";
+import { registerUser } from "../../Redux/Actions/user";
+import { connect } from "react-redux";
+import { toast } from "react-toastify";
 
-export default function Signup() {
+function Signup({ registerUser, user }) {
   const [values, setValues] = useState({
     name: "",
     number: "",
@@ -136,6 +139,11 @@ export default function Signup() {
     </>
   );
 }
+const mapStateToProps = (state) => ({
+  isLoggedIn: state.user.isLoggedIn,
+  user: state.user.user,
+});
+export default connect(mapStateToProps, { registerUser })(Signup);
 
 // https://www.google.com/maps/place/18%C2%B039'21.0%22N+72%C2%B053'30.3%22E/@18.6558337,72.8895461,17z/data=!3m1!4b1!4m5!3m4!1s0x0:0x0!8m2!3d18.6558286!4d72.8917348
 // https://www.google.com/maps/dir/?api=1&latitude=18.6558286&longitude=72.8917348
