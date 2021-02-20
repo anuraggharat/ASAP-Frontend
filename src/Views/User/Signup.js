@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import image from "../../Assets/signupuser.svg";
 import MinorComponent from "../../Components/MinorComponent";
 import { registerUser } from "../../Redux/Actions/user";
@@ -15,6 +15,8 @@ function Signup({ registerUser, user }) {
     email: "",
     password: "",
   });
+  const [redirect, setRedirect] = useState(false);
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const { email, password, name, number, gender, dob } = values;
@@ -28,11 +30,29 @@ function Signup({ registerUser, user }) {
   console.log(values);
   console.log("====================================");
   //value submission function
-  const submitValues = (e) => {
+  const submitValues = async (e) => {
     setLoading(true);
+
     e.preventDefault();
-    console.log("Submittted values", values);
+
+    registerUser(values)
+      .then(async (res) => {
+        if (res.success) {
+          await toast.success(res.message);
+          await toast("Redirecting to Login!");
+          setRedirect(true);
+          setLoading(false);
+        } else {
+          toast.error(res.error);
+          setLoading(false);
+        }
+      })
+      .catch((err) => toast.warning("Please try again!"));
   };
+
+  if (redirect) {
+    return <Redirect to="/user/login" />;
+  }
   return (
     <>
       <div className="row min-vh-100 w-100">
