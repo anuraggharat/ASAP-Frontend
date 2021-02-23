@@ -23,11 +23,11 @@ function App() {
             {/* User routes */}
             <Route path="/user/login" component={Login} />
             <Route path="/user/signup" component={Signup} />
-            <Route path="/user/:slug" component={Dashboard} />
+            <Route path="/user/home" component={Dashboard} />
             {/* Healthcare worker routes */}
             <Route path="/healthcare/login" component={LoginHealthcare} />
             <Route path="/healthcare/signup" component={SignupHealthcare} />
-            <Route path="/healthcare/:slug" component={DashboardHealthcare} />
+            <Route path="/healthcare/home" component={DashboardHealthcare} />
           </Switch>
         </Router>
       </Provider>

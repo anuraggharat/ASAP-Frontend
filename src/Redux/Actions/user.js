@@ -25,6 +25,7 @@ export const registerUser = (user) => async (dispatch) => {
         type: REGISTER_SUCCESS,
         payload: res.data,
       });
+      return res.data;
     } else {
       console.log(res.data);
       dispatch({
@@ -51,7 +52,6 @@ export const loginUser = (user) => async (dispatch) => {
 
   try {
     const res = await api.post("/user/login", body);
-    console.log("response at req", res);
     if (res.data.success) {
       localStorage.setItem("token", res.data.token);
       dispatch({

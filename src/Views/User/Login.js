@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import image from "../../Assets/loginuser.svg";
 import MinorComponent from "../../Components/MinorComponent";
 import { loginUser } from "../../Redux/Actions/user";
@@ -32,7 +32,7 @@ function Login({ isLoggedIn, user, loginUser }) {
     await loginUser(values)
       .then(async (res) => {
         if (res.success) {
-          await toast.success(res.message);
+          toast.success("Successfully Logged In!");
         } else {
           toast.error(res.error);
         }
@@ -40,6 +40,10 @@ function Login({ isLoggedIn, user, loginUser }) {
       .catch((err) => toast.warning(err));
     setLoading(false);
   };
+
+  // if (isLoggedIn) {
+  //   return <Redirect to="/user/home" />;
+  // }
 
   return (
     <>

@@ -6,12 +6,12 @@ import { registerUser } from "../../Redux/Actions/user";
 import { connect } from "react-redux";
 import { toast } from "react-toastify";
 
-function Signup({ registerUser, user }) {
+function Signup({ isLoggedIn, registerUser, user }) {
   const [values, setValues] = useState({
     name: "",
-    number: "",
+    phoneNo: "",
     gender: "",
-    age: "",
+    dob: "",
     email: "",
     password: "",
   });
@@ -19,7 +19,7 @@ function Signup({ registerUser, user }) {
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const { email, password, name, number, gender, dob } = values;
+  const { email, password, name, phoneNo, gender, dob } = values;
 
   //handleChange function to set input values
   const handleChange = (e) => {
@@ -38,8 +38,8 @@ function Signup({ registerUser, user }) {
     registerUser(values)
       .then(async (res) => {
         if (res.success) {
-          await toast.success(res.message);
-          await toast("Redirecting to Login!");
+          toast.success(res.message);
+          toast.success("Redirecting to Login!");
           setRedirect(true);
           setLoading(false);
         } else {
@@ -49,7 +49,7 @@ function Signup({ registerUser, user }) {
       })
       .catch((err) => toast.warning("Please try again!"));
   };
-
+  console.log(user, isLoggedIn);
   if (redirect) {
     return <Redirect to="/user/login" />;
   }
@@ -98,9 +98,9 @@ function Signup({ registerUser, user }) {
                 <input
                   type="text"
                   className="form-control"
-                  id="number  "
-                  name="number"
-                  value={number}
+                  id="phoneNo  "
+                  name="phoneNo"
+                  value={phoneNo}
                   onChange={(e) => handleChange(e)}
                 />
               </div>
