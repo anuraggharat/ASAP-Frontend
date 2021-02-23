@@ -41,7 +41,7 @@ function LoginHealthcare({ loginUser, isLoggedIn, user }) {
     setLoading(false);
   };
   if (isLoggedIn) {
-    return <Redirect to="/healthcare/dash/" />;
+    return <Redirect to="/healthcare/home/" />;
   }
 
   console.log(isLoggedIn);

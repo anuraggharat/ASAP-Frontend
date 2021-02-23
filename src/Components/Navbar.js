@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Navbar({ logoutUser }) {
+export default function Navbar({ logoutUser, username }) {
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -28,7 +28,7 @@ export default function Navbar({ logoutUser }) {
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
-                anuraggharat55@gmail.com
+                {username}
               </button>
               <ul
                 class="dropdown-menu w-100"

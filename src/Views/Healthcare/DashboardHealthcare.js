@@ -1,7 +1,11 @@
 import React, { useState } from "react";
+import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
+import { toast } from "react-toastify";
 import Navbar from "../../Components/Navbar";
+import { logoutUser } from "../../Redux/Actions/healthcare";
 
-export default function DashboardHealthcare() {
+function DashboardHealthcare({ logoutUser, user, isLoggedIn }) {
   const [req, setReq] = useState([
     {
       name: "Anurag Gharat",
@@ -33,13 +37,16 @@ export default function DashboardHealthcare() {
     },
   ]);
 
+  if (!isLoggedIn) {
+    toast.warning("Login to continue");
+    return <Redirect to="/healthcare/login" />;
+  }
   return (
     <>
-      <Navbar username={"anuraggharat55@gmail.com"} />
+      <Navbar username={user.email} logoutUser={logoutUser} />
       <div className="container-fluid">
         <div className="text-center w-100">
-          <h1 className="mt-4">Sharda Hospital</h1>
-          <p>Near Panvel Bus station, Navi-Mumbai, Maharashtra</p>
+          <h1 className="mt-4">{user.name}</h1>
         </div>
         <div className="w-100 min-vh-100 mt-4">
           <div className="w-100 mt-2">
@@ -95,3 +102,8 @@ export default function DashboardHealthcare() {
     </>
   );
 }
+const mapStateToProps = (state) => ({
+  isLoggedIn: state.healthcare.isLoggedIn,
+  user: state.healthcare.user,
+});
+export default connect(mapStateToProps, { logoutUser })(DashboardHealthcare);
