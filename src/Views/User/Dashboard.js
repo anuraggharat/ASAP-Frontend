@@ -1,73 +1,70 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
+import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
+import { toast } from "react-toastify";
 import Navbar from "../../Components/Navbar";
-
-export default function Dashboard() {
+import { logoutUser } from "../../Redux/Actions/user";
+function Dashboard({ logoutUser, user, isLoggedIn }) {
   const [location, setLocation] = useState({
     latitude: "",
     longitude: "",
   });
-  const [error, setError] = useState("");
 
   var options = {
     enableHighAccuracy: true,
     timeout: 5000,
     maximumAge: 0,
   };
+
+  // const sendRequest=()=>{
+
+  // }
+
+  const getLocation = () => {
+    try {
+      navigator.geolocation.getCurrentPosition(
+        async (position) => {
+          await setLocation({
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+          });
+        },
+        handleLocationError,
+        options
+      );
+      toast.info("Location fetch success");
+    } catch (error) {
+      toast.error("Unable to fetch location");
+    }
+  };
+
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition(
-      async (position) => {
-        console.log(position);
-        console.log("Latitude is :", position.coords.latitude);
-        console.log("Longitude is :", position.coords.longitude);
-        await setLocation({
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude,
-        });
-      },
-      handleLocationError,
-      options
-    );
+    getLocation();
   }, []);
+
   function handleLocationError(error) {
     switch (error.code) {
       case 3:
-        setError("Timeout! Please refresh your page!");
-        alert(error);
+        toast.error("Timeout! Please refresh your page!");
         break;
       case 2:
         // ...device can't get data
-        setError("ASAP cant access your location");
-        alert(error);
+        toast.error("ASAP cant access your location");
         break;
       case 1:
         // ...user said no ☹️
-        setError("Please provide access to your location!");
-        alert(error);
+        toast.error("Please provide access to your location!");
     }
   }
-  console.log(process.env);
 
-  const getLocation = async () => {
-    await fetch(
-      "https://maps.googleapis.com/maps/api/geocode/json?address=" +
-        location.latitude +
-        "," +
-        location.longitude +
-        "&key=" +
-        process.env.REACT_APP_KEY
-    )
-      .then((response) => response.json())
-      .then((responseJson) => {
-        console.log(
-          "ADDRESS GEOCODE is BACK!! => " + JSON.stringify(responseJson)
-        );
-      });
-  };
-
+  if (!isLoggedIn) {
+    toast.info("Login to Continue");
+    return <Redirect to="/user/login" />;
+  }
   return (
     <div>
-      <Navbar />
+      <Navbar logoutUser={logoutUser} />
       <div className="container mt-5">
         <div className="d-flex justify-content-center">
           <button className="btn btn-lg btn-danger shadow-lg danger-button">
@@ -81,36 +78,40 @@ export default function Dashboard() {
               <div className="row">
                 <div className="col-6 border-bottom">
                   <h5>Name</h5>
-                  <p>Anurag Gharat</p>
+                  <p>{user.name}</p>
                 </div>
                 <div className="col-6  border-bottom">
                   <h5>Email</h5>
-                  <p>anuraggharat55@gmail.com</p>
+                  <p>{user.email}</p>
                 </div>
                 <div className="col-6  border-bottom mt-3">
                   <h5>Phone number</h5>
-                  <p>7745050822</p>
+                  <p>{user.phoneNo}</p>
                 </div>
                 <div className="col-6  border-bottom mt-3">
                   <h5>Date of Birth</h5>
-                  <p>22 May 2017</p>
+                  <p>{user.dob}</p>
                 </div>
                 <div className="col-6 mt-3">
                   <h5>Gender</h5>
-                  <p>Male</p>
+                  <p>{user.gender}</p>
                 </div>
                 <div className="col-6 mt-3">
                   <h5>Current Location</h5>
-                  <p className="mb-0">{location.latitude}</p>
-                  <p className="mt-0">{location.longitude}</p>
-                  {process.env.REACT_APP_KEY}
+                  <p className="mb-0">
+                    {location.latitude},{location.longitude}
+                  </p>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <button onClick={getLocation}>Get Location of user</button>
     </div>
   );
 }
+const mapStateToProps = (state) => ({
+  isLoggedIn: state.user.isLoggedIn,
+  user: state.user.user,
+});
+export default connect(mapStateToProps, { logoutUser })(Dashboard);

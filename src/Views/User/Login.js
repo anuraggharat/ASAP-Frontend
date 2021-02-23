@@ -41,9 +41,9 @@ function Login({ isLoggedIn, user, loginUser }) {
     setLoading(false);
   };
 
-  // if (isLoggedIn) {
-  //   return <Redirect to="/user/home" />;
-  // }
+  if (isLoggedIn) {
+    return <Redirect to="/user/home" />;
+  }
 
   return (
     <>

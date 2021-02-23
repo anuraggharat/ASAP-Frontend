@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Navbar() {
+export default function Navbar({ logoutUser }) {
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -35,9 +35,9 @@ export default function Navbar() {
                 aria-labelledby="dropdownMenuButton"
               >
                 <li>
-                  <a class="dropdown-item" href="#">
+                  <button class="dropdown-item" href="#" onClick={logoutUser}>
                     Logout
-                  </a>
+                  </button>
                 </li>
               </ul>
             </div>
