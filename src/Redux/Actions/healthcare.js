@@ -18,7 +18,7 @@ export const registerUser = (user) => async (dispatch) => {
   });
 
   try {
-    const res = await api.post("/doctor/register", body);
+    const res = await api.post("/hospital/register", body);
     console.log("response at req", res);
     if (res.data.success) {
       dispatch({
@@ -51,7 +51,7 @@ export const loginUser = (user) => async (dispatch) => {
   });
 
   try {
-    const res = await api.post("/doctor/login", body);
+    const res = await api.post("/hospital/login", body);
     console.log("response at req", res);
     if (res.data.success) {
       localStorage.setItem("token", res.data.token);

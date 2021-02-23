@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, Redirect } from "react-router-dom";
 import image from "../../Assets/signuphealthcare.svg";
 import MinorComponent from "../../Components/MinorComponent";
@@ -9,16 +9,21 @@ import { toast } from "react-toastify";
 function SignupHealthcare({ registerUser, isLoggedIn, user }) {
   const [values, setValues] = useState({
     name: "",
-    phoneno: "",
-    gender: "",
-    dob: "",
-    city: "",
     email: "",
     password: "",
+    type: "",
+    contact: "",
+    main_doc_name: "",
+    latitude: "",
+    xyz: "",
   });
 
+  console.log("====================================");
+  console.log(values);
+
+  console.log("====================================");
   const [redirect, setRedirect] = useState(false);
-  const { email, password, name, phoneno, gender, dob, city } = values;
+  const { email, password, name, contact, main_doc_name, type } = values;
   const [loading, setLoading] = useState(false);
   //handleChange function to set input values
   const handleChange = (e) => {
@@ -33,8 +38,8 @@ function SignupHealthcare({ registerUser, isLoggedIn, user }) {
     registerUser(values)
       .then(async (res) => {
         if (res.success) {
-          await toast.success(res.message);
-          await toast("Redirecting to Login!");
+          toast.success(res.message);
+          toast.info("Redirecting to Login!");
           setRedirect(true);
           setLoading(false);
         } else {
@@ -45,8 +50,28 @@ function SignupHealthcare({ registerUser, isLoggedIn, user }) {
       .catch((err) => toast.warning("Please try again!"));
   };
 
+  const getLocation = async () => {
+    try {
+      navigator.geolocation.getCurrentPosition(async (position) => {
+        await setValues({
+          ...values,
+          latitude: String(position.coords.latitude),
+          xyz: String(position.coords.longitude),
+        });
+        toast.success("Location Found");
+      });
+    } catch (error) {
+      toast.warning("Couldnt find location");
+      toast.info("Please provide Geolocation");
+    }
+  };
+
+  useEffect(async () => {
+    await getLocation();
+  }, []);
+
   if (redirect) {
-    return <Redirect to="/user/login" />;
+    return <Redirect to="/healthcare/login" />;
   }
 
   return (
@@ -66,7 +91,7 @@ function SignupHealthcare({ registerUser, isLoggedIn, user }) {
             <form onSubmit={(e) => submitValues(e)}>
               <div className="mb-3 mt-3">
                 <label htmlFor="name" className="form-label">
-                  Your Name
+                  Hospital Name
                 </label>
                 <input
                   type="name"
@@ -92,45 +117,47 @@ function SignupHealthcare({ registerUser, isLoggedIn, user }) {
               </div>
               <div className="mb-3">
                 <label htmlFor="number" className="form-label">
-                  Your Phone number
+                  Hospital Contact number
                 </label>
                 <input
                   type="text"
                   className="form-control"
-                  id="number  "
-                  name="phoneno"
-                  value={phoneno}
+                  id="contact  "
+                  name="contact"
+                  value={contact}
                   onChange={(e) => handleChange(e)}
                 />
               </div>
               <div className="mb-3 row">
                 <div className="col-6">
                   <label htmlFor="dob" className="form-label">
-                    Date of Birth
+                    Name of Doctor
                   </label>
                   <input
                     type="text"
                     className="form-control"
-                    id="dob"
-                    placeholder="In 27 May 1990 format"
-                    name="dob"
-                    value={dob}
+                    id="main_doc_name"
+                    placeholder=""
+                    name="main_doc_name"
+                    value={main_doc_name}
                     onChange={(e) => handleChange(e)}
                   />
                 </div>
                 <div className="col-6">
                   <label htmlFor="gender" className="form-label">
-                    Gender
+                    Healthcare Type
                   </label>
                   <select
                     className="form-control"
                     onChange={(e) => handleChange(e)}
-                    name="gender"
+                    name="type"
                   >
-                    <option defaultValue={gender}>Select one</option>
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                    <option value="Other">Other</option>
+                    <option defaultValue={type}>Select one</option>
+                    <option value="Multispeciality">Multispeciality</option>
+                    <option value="Clinic">Clinic</option>
+                    <option value="Family">Family</option>
+                    <option value="Emergency">Emergency</option>
+                    <option value="General">General</option>
                   </select>
                 </div>
               </div>
@@ -159,7 +186,7 @@ function SignupHealthcare({ registerUser, isLoggedIn, user }) {
   );
 }
 const mapStateToProps = (state) => ({
-  isLoggedIn: state.user.isLoggedIn,
-  user: state.user.user,
+  isLoggedIn: state.healthcare.isLoggedIn,
+  user: state.healthcare.user,
 });
 export default connect(mapStateToProps, { registerUser })(SignupHealthcare);

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import image from "../../Assets/loginhealthcare.svg";
 import MinorComponent from "../../Components/MinorComponent";
 import { loginUser } from "../../Redux/Actions/healthcare";
@@ -32,7 +32,7 @@ function LoginHealthcare({ loginUser, isLoggedIn, user }) {
     await loginUser(values)
       .then(async (res) => {
         if (res.success) {
-          await toast.success(res.message);
+          await toast.success("Successfully Logged In!");
         } else {
           toast.error(res.error);
         }
@@ -40,6 +40,11 @@ function LoginHealthcare({ loginUser, isLoggedIn, user }) {
       .catch((err) => toast.warning(err));
     setLoading(false);
   };
+  if (isLoggedIn) {
+    return <Redirect to="/healthcare/dash/" />;
+  }
+
+  console.log(isLoggedIn);
   return (
     <>
       <div className="row min-vh-100 w-100">
@@ -93,7 +98,7 @@ function LoginHealthcare({ loginUser, isLoggedIn, user }) {
   );
 }
 const mapStateToProps = (state) => ({
-  isLoggedIn: state.user.isLoggedIn,
-  user: state.user.user,
+  isLoggedIn: state.healthcare.isLoggedIn,
+  user: state.healthcare.user,
 });
 export default connect(mapStateToProps, { loginUser })(LoginHealthcare);

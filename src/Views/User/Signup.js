@@ -50,6 +50,7 @@ function Signup({ isLoggedIn, registerUser, user }) {
       .catch((err) => toast.warning("Please try again!"));
   };
   console.log(user, isLoggedIn);
+
   if (redirect) {
     return <Redirect to="/user/login" />;
   }
