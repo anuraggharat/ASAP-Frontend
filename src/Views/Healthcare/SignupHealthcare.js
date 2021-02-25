@@ -35,19 +35,18 @@ function SignupHealthcare({ registerUser, isLoggedIn, user }) {
 
     e.preventDefault();
 
-    registerUser(values)
+    await registerUser(values)
       .then(async (res) => {
         if (res.success) {
           toast.success(res.message);
           toast.info("Redirecting to Login!");
           setRedirect(true);
-          setLoading(false);
         } else {
           toast.error(res.error);
-          setLoading(false);
         }
       })
       .catch((err) => toast.warning("Please try again!"));
+    setLoading(false);
   };
 
   const getLocation = async () => {
@@ -70,7 +69,7 @@ function SignupHealthcare({ registerUser, isLoggedIn, user }) {
     await getLocation();
   }, []);
 
-  if (redirect) {
+  if (redirect && !loading) {
     return <Redirect to="/healthcare/login" />;
   }
 

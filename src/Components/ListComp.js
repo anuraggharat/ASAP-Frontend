@@ -27,6 +27,7 @@ export default function ListComp({ index, item }) {
               className="link"
               href={`https://www.google.com/maps/search/?api=1&query=${item.latitude},${item.longitude}`}
               target="_blank"
+              rel="noreferrer"
             >
               get location
             </a>

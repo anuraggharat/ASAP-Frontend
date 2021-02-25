@@ -43,7 +43,7 @@ function DashboardHealthcare({ logoutUser, user, isLoggedIn }) {
 
   useEffect(() => {
     getRequests();
-  }, []);
+  });
 
   if (!isLoggedIn) {
     toast.warning("Login to continue");

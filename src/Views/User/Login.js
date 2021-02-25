@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 import image from "../../Assets/loginuser.svg";
 import MinorComponent from "../../Components/MinorComponent";
@@ -7,13 +7,11 @@ import { connect } from "react-redux";
 import { toast } from "react-toastify";
 
 function Login({ isLoggedIn, user, loginUser }) {
-  const [account, setAccount] = useState();
   const [values, setValues] = useState({
     email: "",
     password: "",
   });
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
   const { email, password } = values;
 
   //handleChange function to set input values
@@ -41,7 +39,7 @@ function Login({ isLoggedIn, user, loginUser }) {
     setLoading(false);
   };
 
-  if (isLoggedIn) {
+  if (isLoggedIn && !loading) {
     return <Redirect to="/user/home" />;
   }
 

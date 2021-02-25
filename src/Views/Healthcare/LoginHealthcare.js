@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 import image from "../../Assets/loginhealthcare.svg";
 import MinorComponent from "../../Components/MinorComponent";
@@ -7,13 +7,11 @@ import { connect } from "react-redux";
 import { toast } from "react-toastify";
 
 function LoginHealthcare({ loginUser, isLoggedIn, user }) {
-  const [account, setAccount] = useState();
   const [values, setValues] = useState({
     email: "",
     password: "",
   });
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
   const { email, password } = values;
 
   //handleChange function to set input values
