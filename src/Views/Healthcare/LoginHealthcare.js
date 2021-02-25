@@ -32,7 +32,7 @@ function LoginHealthcare({ loginUser, isLoggedIn, user }) {
     await loginUser(values)
       .then(async (res) => {
         if (res.success) {
-          await toast.success("Successfully Logged In!");
+          toast.success("Successfully Logged In!");
         } else {
           toast.error(res.error);
         }
@@ -40,7 +40,7 @@ function LoginHealthcare({ loginUser, isLoggedIn, user }) {
       .catch((err) => toast.warning(err));
     setLoading(false);
   };
-  if (isLoggedIn) {
+  if (isLoggedIn && !loading) {
     return <Redirect to="/healthcare/home/" />;
   }
 
