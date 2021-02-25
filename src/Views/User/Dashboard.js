@@ -5,21 +5,42 @@ import { Redirect } from "react-router-dom";
 import { toast } from "react-toastify";
 import Navbar from "../../Components/Navbar";
 import { logoutUser } from "../../Redux/Actions/user";
+import api from "../../utils/api";
+
 function Dashboard({ logoutUser, user, isLoggedIn }) {
   const [location, setLocation] = useState({
     latitude: "",
     longitude: "",
   });
 
+  const [message, setMessage] = useState("");
   var options = {
     enableHighAccuracy: true,
     timeout: 5000,
     maximumAge: 0,
   };
 
-  // const sendRequest=()=>{
+  const sendRequest = async (e) => {
+    e.preventDefault();
+    try {
+      const myData = {
+        id: user._id,
+        lat: location.latitude,
+        long: location.longitude,
+      };
+      const body = JSON.stringify(myData);
 
-  // }
+      const { data } = await api.post("/nearest", body);
+      if (data.success) {
+        toast.success("Request Sent!");
+        toast.info(data.message);
+      } else {
+        toast.error("Please try again!");
+      }
+    } catch (error) {
+      toast.error("Unable to place your Request");
+    }
+  };
 
   const getLocation = () => {
     try {
@@ -64,10 +85,13 @@ function Dashboard({ logoutUser, user, isLoggedIn }) {
   }
   return (
     <div>
-      <Navbar logoutUser={logoutUser} />
+      <Navbar logoutUser={logoutUser} username={user.email} />
       <div className="container mt-5">
         <div className="d-flex justify-content-center">
-          <button className="btn btn-lg btn-danger shadow-lg danger-button">
+          <button
+            className="btn btn-lg btn-danger shadow-lg danger-button"
+            onClick={(e) => sendRequest(e)}
+          >
             <i class="bi bi-exclamation-circle "></i>
             EMERGENCY
           </button>
