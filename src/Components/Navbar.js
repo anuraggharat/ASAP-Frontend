@@ -20,9 +20,9 @@ export default function Navbar({ logoutUser, username }) {
             <a className="navbar-brand" href="#">
               ASAP
             </a>
-            <div class="dropdown ml-auto">
+            <div className="dropdown ml-auto">
               <button
-                class="btn btn-primary dropdown-toggle"
+                className="btn btn-primary dropdown-toggle"
                 type="button"
                 id="dropdownMenuButton"
                 data-bs-toggle="dropdown"
@@ -31,11 +31,15 @@ export default function Navbar({ logoutUser, username }) {
                 {username}
               </button>
               <ul
-                class="dropdown-menu w-100"
+                className="dropdown-menu w-100"
                 aria-labelledby="dropdownMenuButton"
               >
                 <li>
-                  <button class="dropdown-item" href="#" onClick={logoutUser}>
+                  <button
+                    className="dropdown-item"
+                    href="#"
+                    onClick={logoutUser}
+                  >
                     Logout
                   </button>
                 </li>

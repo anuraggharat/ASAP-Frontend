@@ -21,6 +21,7 @@ function Dashboard({ logoutUser, user, isLoggedIn }) {
   };
 
   const sendRequest = async (e) => {
+    setMessage("");
     e.preventDefault();
     try {
       const myData = {
@@ -33,7 +34,8 @@ function Dashboard({ logoutUser, user, isLoggedIn }) {
       const { data } = await api.post("/nearest", body);
       if (data.success) {
         toast.success("Request Sent!");
-        toast.info(data.message);
+        toast.success(data.message);
+        setMessage("Request placed! Help is ariving soon!");
       } else {
         toast.error("Please try again!");
       }
@@ -96,9 +98,16 @@ function Dashboard({ logoutUser, user, isLoggedIn }) {
             EMERGENCY
           </button>
         </div>
+        <div className="container mt-3">
+          {message && (
+            <div class="alert alert-primary" role="alert">
+              {message}
+            </div>
+          )}
+        </div>
         <div className="d-flex mt-5 text-muted">
-          <div class="card w-100 shadow-lg border-0">
-            <div class="card-body">
+          <div className="card w-100 shadow-lg border-0">
+            <div className="card-body">
               <div className="row">
                 <div className="col-6 border-bottom">
                   <h5>Name</h5>

@@ -1,46 +1,56 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { toast } from "react-toastify";
 import Navbar from "../../Components/Navbar";
 import { logoutUser } from "../../Redux/Actions/healthcare";
+import api from "../../utils/api";
+import ListComp from "../../Components/ListComp";
 
 function DashboardHealthcare({ logoutUser, user, isLoggedIn }) {
-  const [req, setReq] = useState([
-    {
-      name: "Anurag Gharat",
-      email: "anuraggharat55@gmail.com",
-      phone: "7745050822",
-      gender: "Male",
-      location: "Alibag,Raigad,Maharashtra",
-    },
-    {
-      name: "Shubham Gharat",
-      email: "shubhamgharat55@gmail.com",
-      phone: "7745050822",
-      gender: "Male",
-      location: "Alibag,Raigad,Maharashtra",
-    },
-    {
-      name: "Pawan Bhanushali",
-      email: "pawanbhanu@gmail.com",
-      phone: "7745050822",
-      gender: "Male",
-      location: "Surat, Gujrat",
-    },
-    {
-      name: "Sanjeel Bhosale",
-      email: "sanjubhosale@gmail.com",
-      phone: "7745050822",
-      gender: "Male",
-      location: "Dadar,Mumbai",
-    },
-  ]);
+  const [req, setReq] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const getRequests = async () => {
+    setLoading(true);
+    try {
+      const myData = {
+        id: user._id,
+      };
+      const body = JSON.stringify(myData);
+      const { data } = await api.post("/request/getrequests", body);
+      console.log(data);
+      if (data.success) {
+        if (data.count === 0) {
+          console.log("hitted");
+          toast.info("No requests scheduled");
+          await setReq([]);
+          setLoading(false);
+        } else {
+          toast.success("Showing all Requests!");
+          await setReq(data.data);
+          setLoading(false);
+        }
+      } else {
+        toast.info("No available!");
+        setLoading(false);
+      }
+    } catch (error) {
+      toast.error("Unable to fetch requests");
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getRequests();
+  }, []);
 
   if (!isLoggedIn) {
     toast.warning("Login to continue");
     return <Redirect to="/healthcare/login" />;
   }
+
+  console.log(req);
   return (
     <>
       <Navbar username={user.email} logoutUser={logoutUser} />
@@ -59,40 +69,22 @@ function DashboardHealthcare({ logoutUser, user, isLoggedIn }) {
                   <div className="col-lg-3">
                     <h5>Contact Number</h5>
                   </div>
-                  <div className="col-lg-3">
+                  <div className="col-lg-2">
                     <h5>Gender</h5>
                   </div>
-                  <div className="col-lg-3">
-                    <h5>Current Location</h5>
+                  <div className="col-lg-2">
+                    <h5>Date</h5>
+                  </div>
+                  <div className="col-lg-2">
+                    <h5>Location</h5>
                   </div>
                 </div>
               </div>
-              {req.map((item, index) => (
-                <div
-                  key={index}
-                  className="list-group-item list-group-item-action "
-                >
-                  <div className="row">
-                    <div className="col-lg-3">
-                      <p className="mb-0">{item.name}</p>
-                      <span className="mt-0 text-muted small-text">
-                        {item.email}
-                      </span>
-                    </div>
-                    <div className="col-lg-3">
-                      <p>{item.phone}</p>
-                    </div>
-                    <div className="col-lg-3">
-                      <p>{item.gender}</p>
-                    </div>
-                    <div className="col-lg-3">
-                      <div className="d-flex justify-content-between">
-                        <p className="text-success">{item.location}</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
+              {!loading &&
+                req &&
+                req.map((item, index) => (
+                  <ListComp index={index} item={item} />
+                ))}
 
               <div></div>
             </div>
