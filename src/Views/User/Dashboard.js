@@ -12,8 +12,8 @@ function Dashboard({ logoutUser, user, isLoggedIn }) {
     latitude: "",
     longitude: "",
   });
-
-  const [message, setMessage] = useState("");
+  const [beds, setBeds] = useState(0);
+  const [hospital, setHospital] = useState(null);
   var options = {
     enableHighAccuracy: true,
     timeout: 5000,
@@ -21,7 +21,7 @@ function Dashboard({ logoutUser, user, isLoggedIn }) {
   };
 
   const sendRequest = async (e) => {
-    setMessage("");
+    setHospital(null);
     e.preventDefault();
     try {
       const myData = {
@@ -32,10 +32,13 @@ function Dashboard({ logoutUser, user, isLoggedIn }) {
       const body = JSON.stringify(myData);
 
       const { data } = await api.post("/nearest", body);
+      console.table(data);
       if (data.success) {
         toast.success("Request Sent!");
         toast.success(data.message);
-        setMessage("Request placed! Help is ariving soon!");
+        toast.info(`Available beds: ${data.beds}`);
+        setHospital(data.hospital);
+        setBeds(data.beds);
       } else {
         toast.error("Please try again!");
       }
@@ -93,14 +96,39 @@ function Dashboard({ logoutUser, user, isLoggedIn }) {
             className="btn btn-lg btn-danger shadow-lg danger-button"
             onClick={(e) => sendRequest(e)}
           >
-            <i class="bi bi-exclamation-circle "></i>
+            <i className="bi bi-exclamation-circle "></i>
             EMERGENCY
           </button>
         </div>
         <div className="container mt-3">
-          {message && (
-            <div class="alert alert-primary" role="alert">
-              {message}
+          {hospital && (
+            <div className="alert alert-primary" role="alert">
+              <div className="row">
+                <div className="col-lg-4 my-2 col-sm-6">
+                  HOSPITAL NAME:<br></br>
+                  {hospital.name}
+                </div>
+                <div className="col-lg-4 my-2 col-sm-6">
+                  HOSPITAL TYPE:<br></br>
+                  {hospital.type}
+                </div>
+                <div className="col-lg-4 my-2 col-sm-6">
+                  DOCTOR NAME:<br></br>
+                  {hospital.main_doc_name}
+                </div>
+                <div className="col-lg-4 my-2 col-sm-6">
+                  CONTACT NUMBER:<br></br>
+                  {hospital.contact}
+                </div>
+                <div className="col-lg-4 my-2 col-sm-6">
+                  HOSPITAL EMAIL:<br></br>
+                  {hospital.email}
+                </div>
+                <div className="col-lg-4 my-2 col-sm-6">
+                  AVAILABLE BEDS:<br></br>
+                  {beds}
+                </div>
+              </div>
             </div>
           )}
         </div>
