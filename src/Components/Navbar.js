@@ -5,6 +5,9 @@ export default function Navbar({ logoutUser, username }) {
     <>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <div className="container-fluid">
+          <a className="navbar-brand" href="#">
+            ASAP
+          </a>
           <button
             className="navbar-toggler"
             type="button"
@@ -17,9 +20,6 @@ export default function Navbar({ logoutUser, username }) {
             <span className="navbar-toggler-icon"></span>
           </button>
           <div className="collapse navbar-collapse" id="navbarTogglerDemo01">
-            <a className="navbar-brand" href="#">
-              ASAP
-            </a>
             <div className="dropdown ml-auto">
               <button
                 className="btn btn-primary dropdown-toggle"

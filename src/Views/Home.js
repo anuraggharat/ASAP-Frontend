@@ -8,12 +8,12 @@ export default function Home() {
       <div className="container z-10">
         <h1 className=" display-3">Healthcare Anywhere, Anytime!</h1>
         <div className="w-75 mx-auto px-5 my-4">
-          <p>
+          <p className="lead">
             A online portal for users to request healthcare help. A nearest
             healthcare station is alloted according to users position.
           </p>
         </div>
-        <div className="d-flex justify-content-around w-50 mx-auto">
+        <div className="d-flex justify-content-around w-75 mx-auto">
           <Link to="/user/login" className="btn btn-primary">
             User Login
           </Link>

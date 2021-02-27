@@ -45,9 +45,9 @@ function LoginHealthcare({ loginUser, isLoggedIn, user }) {
   console.log(isLoggedIn);
   return (
     <>
-      <div className="row min-vh-100 w-100">
+      <div className="row min-vh-100 w-100 m-0">
         <MinorComponent image={image} />
-        <div className="col-lg-7 col-sm-12 d-flex justify-content-center flex-column bg-light">
+        <div className="col-lg-7 col-sm-12 py-5 d-flex justify-content-center flex-column bg-light">
           <div className="container">
             <h1>
               Login{" "}
@@ -55,7 +55,7 @@ function LoginHealthcare({ loginUser, isLoggedIn, user }) {
             </h1>
             <p>
               New here? Consider
-              <Link to="/user/signup"> SignUp</Link>
+              <Link to="/healthcare/signup"> SignUp</Link>
             </p>
             <form onSubmit={(e) => submitValues(e)}>
               <div className="mb-3">

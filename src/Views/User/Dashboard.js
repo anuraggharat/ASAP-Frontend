@@ -82,13 +82,12 @@ function Dashboard({ logoutUser, user, isLoggedIn }) {
   }
 
   if (!isLoggedIn) {
-    toast.info("Login to Continue");
     return <Redirect to="/user/login" />;
   }
   return (
     <div>
       <Navbar logoutUser={logoutUser} username={user.email} />
-      <div className="container mt-5">
+      <div className="container mt-5 pb-5">
         <div className="d-flex justify-content-center">
           <button
             className="btn btn-lg btn-danger shadow-lg danger-button"
@@ -109,27 +108,27 @@ function Dashboard({ logoutUser, user, isLoggedIn }) {
           <div className="card w-100 shadow-lg border-0">
             <div className="card-body">
               <div className="row">
-                <div className="col-6 border-bottom">
+                <div className="col-lg-6 col-sm-12 border-bottom">
                   <h5>Name</h5>
                   <p>{user.name}</p>
                 </div>
-                <div className="col-6  border-bottom">
+                <div className="col-lg-6 col-sm-12  border-bottom">
                   <h5>Email</h5>
                   <p>{user.email}</p>
                 </div>
-                <div className="col-6  border-bottom mt-3">
+                <div className="col-lg-6 col-sm-12 border-bottom mt-3">
                   <h5>Phone number</h5>
                   <p>{user.phoneNo}</p>
                 </div>
-                <div className="col-6  border-bottom mt-3">
+                <div className="col-lg-6 col-sm-12  border-bottom mt-3">
                   <h5>Date of Birth</h5>
                   <p>{user.dob}</p>
                 </div>
-                <div className="col-6 mt-3">
+                <div className="col-lg-6 col-sm-12 mt-3 ">
                   <h5>Gender</h5>
                   <p>{user.gender}</p>
                 </div>
-                <div className="col-6 mt-3">
+                <div className="col-lg-6 col-sm-12 mt-3">
                   <h5>Current Location</h5>
                   <p className="mb-0">
                     {location.latitude},{location.longitude}

@@ -43,10 +43,9 @@ function DashboardHealthcare({ logoutUser, user, isLoggedIn }) {
 
   useEffect(() => {
     getRequests();
-  });
+  }, []);
 
   if (!isLoggedIn) {
-    toast.warning("Login to continue");
     return <Redirect to="/healthcare/login" />;
   }
 
@@ -54,7 +53,7 @@ function DashboardHealthcare({ logoutUser, user, isLoggedIn }) {
   return (
     <>
       <Navbar username={user.email} logoutUser={logoutUser} />
-      <div className="container-fluid">
+      <div className="container-fluid pb-5">
         <div className="text-center w-100">
           <h1 className="mt-4">{user.name}</h1>
         </div>

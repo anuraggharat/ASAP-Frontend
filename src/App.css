@@ -11,6 +11,9 @@
 h5 {
   color: #111;
 }
+.title {
+  font-family: "Shippori Mincho B1", serif;
+}
 .bg-home {
   background: url("./Assets/home.jpg");
   background-position: center;

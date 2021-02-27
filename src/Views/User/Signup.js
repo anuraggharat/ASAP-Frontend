@@ -56,9 +56,9 @@ function Signup({ isLoggedIn, registerUser, user }) {
   }
   return (
     <>
-      <div className="row min-vh-100 w-100">
+      <div className="row min-vh-100 w-100 m-0">
         <MinorComponent image={image} />
-        <div className="col-lg-7 col-sm-12 d-flex bg-light justify-content-center flex-column">
+        <div className="col-lg-7 py-5 col-sm-12 d-flex bg-light justify-content-center flex-column">
           <div className="container">
             <h1>SignUp</h1>
             <p>

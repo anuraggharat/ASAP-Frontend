@@ -45,9 +45,9 @@ function Login({ isLoggedIn, user, loginUser }) {
 
   return (
     <>
-      <div className="row min-vh-100 w-100">
+      <div className="row min-vh-100 w-100 m-0">
         <MinorComponent image={image} />
-        <div className="col-lg-7 col-sm-12 d-flex justify-content-center flex-column bg-light">
+        <div className="col-lg-7 py-5 col-sm-12 col-xs-12 w-100 d-flex justify-content-center flex-column bg-light">
           <div className="container">
             <h1>Login</h1>
             <p>
