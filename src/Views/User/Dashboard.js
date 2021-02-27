@@ -102,7 +102,7 @@ function Dashboard({ logoutUser, user, isLoggedIn }) {
         </div>
         <div className="container mt-3">
           {hospital && (
-            <div className="alert alert-primary" role="alert">
+            <div className="alert alert-info" role="alert">
               <div className="row">
                 <div className="col-lg-4 my-2 col-sm-6">
                   HOSPITAL NAME:<br></br>
@@ -128,6 +128,14 @@ function Dashboard({ logoutUser, user, isLoggedIn }) {
                   AVAILABLE BEDS:<br></br>
                   {beds}
                 </div>
+              </div>
+              <div>
+                <a
+                  href={`https://www.google.com/maps/search/?api=1&query=${hospital.latitude},${hospital.xyz}`}
+                  target="_blank"
+                >
+                  Get Location
+                </a>
               </div>
             </div>
           )}
