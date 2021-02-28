@@ -11,6 +11,7 @@ import { Provider } from "react-redux";
 import store from "./Redux/store";
 import { toast } from "react-toastify";
 import Error from "./Views/Error";
+import Request from "./Views/Healthcare/Request";
 toast.configure();
 
 function App() {
@@ -29,6 +30,8 @@ function App() {
             <Route path="/healthcare/login" component={LoginHealthcare} />
             <Route path="/healthcare/signup" component={SignupHealthcare} />
             <Route path="/healthcare/home" component={DashboardHealthcare} />
+            <Route path="/healthcare/request" component={Request} />
+
             <Route path="*" component={Error} />
           </Switch>
         </Router>

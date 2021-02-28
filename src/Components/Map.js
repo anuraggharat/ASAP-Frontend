@@ -5,7 +5,7 @@ mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
 
 export default function Map({ lat, lon }) {
   const mapContainerRef = useRef(null);
-
+  console.log(lat, lon);
   // initialize map when component mounts
   useEffect(() => {
     const map = new mapboxgl.Map({
