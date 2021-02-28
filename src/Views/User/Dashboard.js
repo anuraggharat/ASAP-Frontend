@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { toast } from "react-toastify";
+import Map from "../../Components/Map";
 import Navbar from "../../Components/Navbar";
 import { logoutUser } from "../../Redux/Actions/user";
 import api from "../../utils/api";
@@ -139,6 +140,10 @@ function Dashboard({ logoutUser, user, isLoggedIn }) {
               </div>
             </div>
           )}
+        </div>
+        <div className="container">
+          <h4>Current Location</h4>
+          <Map lat={location.latitude} lon={location.longitude} />
         </div>
         <div className="d-flex mt-5 text-muted">
           <div className="card w-100 shadow-lg border-0">

@@ -3,7 +3,7 @@ import mapboxgl from "mapbox-gl";
 
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
 
-export default function Map() {
+export default function Map({ lat, lon }) {
   const mapContainerRef = useRef(null);
 
   // initialize map when component mounts
@@ -11,12 +11,10 @@ export default function Map() {
     const map = new mapboxgl.Map({
       container: mapContainerRef.current,
       style: "mapbox://styles/mapbox/streets-v11",
-      center: [72.8813701, 18.6561523],
+      center: [lon, lat],
       zoom: 12.5,
     });
-    var marker = new mapboxgl.Marker()
-      .setLngLat([72.8813701, 18.6561523])
-      .addTo(map);
+    var marker = new mapboxgl.Marker().setLngLat([lon, lat]).addTo(map);
 
     map.addControl(new mapboxgl.NavigationControl(), "bottom-right");
 
