@@ -10,6 +10,7 @@ import DashboardHealthcare from "./Views/Healthcare/DashboardHealthcare";
 import { Provider } from "react-redux";
 import store from "./Redux/store";
 import { toast } from "react-toastify";
+import Map from "./Components/Map";
 toast.configure();
 
 function App() {
@@ -19,6 +20,8 @@ function App() {
         <Router>
           <Switch>
             <Route path="/" exact component={Home} />
+            <Route path="/map" component={Map} />
+
             {/* User routes */}
             <Route path="/user/login" component={Login} />
             <Route path="/user/signup" component={Signup} />
