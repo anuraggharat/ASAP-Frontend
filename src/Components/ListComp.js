@@ -25,11 +25,11 @@ export default function ListComp({ key, item }) {
         <div className="col-lg-2">
           <div className="d-flex justify-content-between">
             <Link
-              className="d-flex align-items-center"
+              className="d-flex align-items-center p-0 justify-space-between"
               to={{ pathname: `/healthcare/request`, item: item }}
             >
               Get Details
-              <BsBoxArrowInRight />
+              <BsBoxArrowInRight className="ml-2" />
             </Link>
           </div>
         </div>
