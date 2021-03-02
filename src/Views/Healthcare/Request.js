@@ -4,8 +4,11 @@ import Navbar from "../../Components/Navbar";
 import { connect } from "react-redux";
 import Map from "../../Components/Map";
 import { Link } from "react-router-dom";
+import moment from "moment";
 
-function Request({ logoutUser, user, isLoggedIn }) {
+function Request({ logoutUser, user, isLoggedIn, location }) {
+  console.log(location);
+  const { item } = location;
   return (
     <div>
       <Navbar username={"some"} logoutUser={logoutUser} />
@@ -13,48 +16,48 @@ function Request({ logoutUser, user, isLoggedIn }) {
       <div className="p-5">
         <div className="container">
           <div className="row">
-            <div className="col-lg-12 border-bottom mb-3">
-              <Link>Go Back</Link>
+            <div className="col-lg-12 mb-3">
+              <Link to="/healthcare/home">Go Back</Link>
             </div>
           </div>
           <div className="row lead">
             <div className="col-lg-4 col-sm-12">
               <h4>NAME</h4>
               <div className="border-bottom"></div>
-              <p>Anurag Gharat</p>
+              <p>{item.name}</p>
             </div>
             <div className="col-lg-4 col-sm-12">
               <h4>EMAIL</h4>
               <div className="border-bottom"></div>
-              <p>anuraggharat55@gmail.com</p>
+              <p>{item.email ? item.email : "not provided"}</p>
             </div>
             <div className=" col-lg-4 col-sm-12">
               <h4>NUMBER</h4>
               <div className="border-bottom"></div>
 
-              <p>7745050822</p>
+              <p>{item.phoneNo}</p>
             </div>
-            <div className="col-lg-4 col-sm-12">
+            <div className="col-lg-4 col-sm-12 mt-3">
               <h4>GENDER</h4>
               <div className="border-bottom"></div>
-              <p>MALE</p>
+              <p>{item.gender}</p>
             </div>
-            <div className="col-lg-4 col-sm-12">
-              <h4>EMAIL</h4>
+            <div className="col-lg-4 col-sm-12 mt-3">
+              <h4>Requested</h4>
               <div className="border-bottom"></div>
-              <p>anuraggharat55@gmail.com</p>
+              <p>{moment(item.date).fromNow()}</p>
             </div>
-            <div className=" col-lg-4 col-sm-12">
+            {/* <div className=" col-lg-4 col-sm-12">
               <h4>NUMBER</h4>
               <div className="border-bottom"></div>
 
               <p>7745050822</p>
-            </div>
+            </div> */}
           </div>
         </div>
         <div className="container mt-5">
           <h3>Live location of Requester</h3>
-          <Map lat={"18.654647"} lon={"72.89108879999999"} />
+          <Map lat={item.latitude} lon={item.longitude} />
         </div>
       </div>
     </div>

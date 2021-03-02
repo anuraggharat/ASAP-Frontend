@@ -79,13 +79,11 @@ function DashboardHealthcare({ logoutUser, user, isLoggedIn }) {
                   </div>
                 </div>
               </div>
+            </div>
+            <div className="list-group list-group-rev shadow-sm">
               {!loading &&
                 req &&
-                req.map((item, index) => (
-                  <ListComp index={index} item={item} />
-                ))}
-
-              <div></div>
+                req.map((item, index) => <ListComp key={index} item={item} />)}
             </div>
           </div>
         </div>
