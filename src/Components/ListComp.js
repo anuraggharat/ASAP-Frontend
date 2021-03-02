@@ -29,7 +29,7 @@ export default function ListComp({ key, item }) {
               to={{ pathname: `/healthcare/request`, item: item }}
             >
               Get Details
-              <BsBoxArrowInRight className="ml-2" />
+              <BsBoxArrowInRight className="ml-1" />
             </Link>
           </div>
         </div>
