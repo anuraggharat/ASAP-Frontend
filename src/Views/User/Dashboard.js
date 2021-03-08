@@ -8,6 +8,8 @@ import Map from "../../Components/Map";
 import Navbar from "../../Components/Navbar";
 import { logoutUser } from "../../Redux/Actions/user";
 import api from "../../utils/api";
+import { GiHealthNormal } from "react-icons/gi";
+import UploadDoc from "../../Components/UploadDoc";
 
 function Dashboard({ logoutUser, user, isLoggedIn }) {
   const [location, setLocation] = useState({
@@ -21,6 +23,10 @@ function Dashboard({ logoutUser, user, isLoggedIn }) {
     timeout: 5000,
     maximumAge: 0,
   };
+
+  const [modal, setModal] = useState(false);
+
+  const toggle = () => setModal(!modal);
 
   const sendRequest = async (e) => {
     setHospital(null);
@@ -61,7 +67,7 @@ function Dashboard({ logoutUser, user, isLoggedIn }) {
         handleLocationError,
         options
       );
-      toast.info("Location fetch success");
+      // toast.info("Location fetch success");
     } catch (error) {
       toast.error("Unable to fetch location");
     }
@@ -93,15 +99,27 @@ function Dashboard({ logoutUser, user, isLoggedIn }) {
     <div>
       <Navbar logoutUser={logoutUser} username={user.email} />
       <div className="container mt-5 pb-5">
-        <div className="d-flex justify-content-center">
+        <div className="d-flex w-50 mx-auto justify-content-around  flex-md-row flex-column">
           <button
-            className="btn btn-lg btn-danger shadow-lg danger-button"
+            onClick={toggle}
+            className="btn btn-lg btn-success shadow-lg danger-button my-3"
+          >
+            <i class="bi bi-file-bar-graph-fill"></i>
+            Upload Report
+          </button>
+          <button
+            className="btn btn-lg btn-danger shadow-lg danger-button my-3"
             onClick={(e) => sendRequest(e)}
           >
             <i className="bi bi-exclamation-circle "></i>
             EMERGENCY
           </button>
+          <button className="btn btn-lg btn-info shadow-lg danger-button my-3">
+            <GiHealthNormal />
+            Appointment
+          </button>
         </div>
+        <UploadDoc toggle={toggle} modal={modal} />
         <div className="container mt-3">
           {hospital && (
             <div className="alert alert-info" role="alert">
