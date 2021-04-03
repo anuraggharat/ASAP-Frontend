@@ -41,3 +41,28 @@ h5 {
 .list-group-rev {
   flex-direction: column-reverse !important;
 }
+.align-items-end-lg {
+  align-items: flex-end;
+}
+.text-right-lg {
+  text-align: right;
+}
+.text-left-lg {
+  text-align: left;
+}
+@media screen and (max-width: 600px) {
+  .home-image {
+    margin: 0px auto !important;
+  }
+  .text-left-lg {
+    text-align: center !important;
+  }
+  .change-order {
+    flex-direction: column-reverse !important;
+  }
+  .text-sm-center,
+  .align-items-end-lg .text-right-lg {
+    text-align: center !important;
+    align-items: center !important;
+  }
+}

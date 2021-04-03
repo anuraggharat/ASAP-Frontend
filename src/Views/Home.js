@@ -30,10 +30,10 @@ export default function Home() {
       <div className="w-100 mt-5 pt-5">
         <div className="container py-5">
           <div className="row">
-            <div className="col-lg-6 d-flex justify-content-center">
-              <img src={thirdImage} className="w-50 ml-auto"></img>
+            <div className="col-lg-6 col-sm-12 d-flex justify-content-center">
+              <img src={thirdImage} className="w-50 ml-auto home-image"></img>
             </div>
-            <div className="col-lg-6 d-flex flex-column  justify-content-center align-items-start">
+            <div className="col-lg-6 text-sm-center col-sm-12 d-flex flex-column  justify-content-center align-items-start">
               <h1>Create your account</h1>
               <p className="text-muted lead">
                 Visit{" "}
@@ -54,28 +54,28 @@ export default function Home() {
           </div>
         </div>
         <div className="container py-5">
-          <div className="row">
-            <div className="col-lg-6 d-flex flex-column  justify-content-center align-items-end">
+          <div className="row change-order ">
+            <div className="col-lg-6 text-sm-center col-sm-12 d-flex flex-column  justify-content-center align-items-end-lg">
               <h1>Send a Request</h1>
-              <p className="text-right text-muted lead">
+              <p className="text-right-lg text-muted lead">
                 Incase of emergency click on the emergency button. Your details
                 along with live location with be sent to the nearest healthcare
                 provider.
               </p>
             </div>
-            <div className="col-lg-6 d-flex justify-content-center">
-              <img src={firstImage} className="w-50 mr-auto"></img>
+            <div className="col-lg-6 d-flex offset-md-12 justify-content-center">
+              <img src={firstImage} className="w-50 mr-auto home-image "></img>
             </div>
           </div>
         </div>
         <div className="container py-5">
           <div className="row">
-            <div className="col-lg-6 d-flex justify-content-center">
-              <img src={secondImage} className="w-50 ml-auto"></img>
+            <div className="col-lg-6  col-sm-12 d-flex justify-content-center">
+              <img src={secondImage} className="w-50 ml-auto home-image"></img>
             </div>
-            <div className="col-lg-6 d-flex flex-column  justify-content-center align-items-start">
+            <div className="col-lg-6 text-sm-center col-sm-12 d-flex flex-column  justify-content-center align-items-start-lg">
               <h1>Recieve Assistance</h1>
-              <p className="text-muted lead">
+              <p className="text-muted lead text-left-lg">
                 Once your request is recieved you will be sent details of
                 nearest Healthcare provider along with relevant details.
               </p>
