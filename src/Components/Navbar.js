@@ -36,14 +36,19 @@ export default function Navbar({ logoutUser, username }) {
                 aria-labelledby="dropdownMenuButton"
               >
                 <li>
-                  <button className="dropdown-item" onClick={logoutUser}>
-                    Logout
-                  </button>
-                </li>
-                <li>
                   <Link className="dropdown-item" to="/user/preferences">
                     Preferences
                   </Link>
+                </li>
+                <li>
+                  <Link className="dropdown-item" to="/user/services">
+                    Services
+                  </Link>
+                </li>
+                <li>
+                  <button className="dropdown-item" onClick={logoutUser}>
+                    Logout
+                  </button>
                 </li>
               </ul>
             </div>

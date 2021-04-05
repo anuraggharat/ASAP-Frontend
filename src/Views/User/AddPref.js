@@ -3,13 +3,8 @@ import { useEffect } from "react";
 import { connect } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
 import { toast } from "react-toastify";
-import Loading from "../../Components/Loading";
-import Map from "../../Components/Map";
 import Navbar from "../../Components/Navbar";
 import { logoutUser } from "../../Redux/Actions/user";
-import api from "../../utils/api";
-import { GiTrashCan } from "react-icons/gi";
-import UploadDoc from "../../Components/UploadDoc";
 
 function AddPref({ logoutUser, user, isLoggedIn }) {
   const [nameList, setNameList] = useState([
