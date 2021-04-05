@@ -12,6 +12,7 @@ import store from "./Redux/store";
 import { toast } from "react-toastify";
 import Error from "./Views/Error";
 import Request from "./Views/Healthcare/Request";
+import AddPref from "./Views/User/AddPref";
 toast.configure();
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
             <Route path="/user/login" component={Login} />
             <Route path="/user/signup" component={Signup} />
             <Route path="/user/home" component={Dashboard} />
+            <Route path="/user/preferences" component={AddPref} />
             {/* Healthcare worker routes */}
             <Route path="/healthcare/login" component={LoginHealthcare} />
             <Route path="/healthcare/signup" component={SignupHealthcare} />

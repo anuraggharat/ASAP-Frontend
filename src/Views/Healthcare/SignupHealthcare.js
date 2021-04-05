@@ -65,8 +65,8 @@ function SignupHealthcare({ registerUser, isLoggedIn, user }) {
     }
   };
 
-  useEffect(async () => {
-    await getLocation();
+  useEffect(() => {
+    getLocation();
   }, []);
 
   if (redirect && !loading) {

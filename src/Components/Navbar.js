@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export default function Navbar({ logoutUser, username }) {
   return (
@@ -38,6 +39,11 @@ export default function Navbar({ logoutUser, username }) {
                   <button className="dropdown-item" onClick={logoutUser}>
                     Logout
                   </button>
+                </li>
+                <li>
+                  <Link className="dropdown-item" to="/user/preferences">
+                    Preferences
+                  </Link>
                 </li>
               </ul>
             </div>
