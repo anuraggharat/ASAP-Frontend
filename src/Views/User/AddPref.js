@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { connect } from "react-redux";
-import { Redirect } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { toast } from "react-toastify";
 import Loading from "../../Components/Loading";
 import Map from "../../Components/Map";
@@ -46,6 +46,9 @@ function AddPref({ logoutUser, user, isLoggedIn }) {
     <div>
       <Navbar logoutUser={logoutUser} username={user.email} />
       <div className="container mt-5 pb-5">
+        <div className="container mb-3">
+          <Link to="/user/home">Go Back</Link>
+        </div>
         <div className="container">
           <h1>Add your Emerengy contact numbers</h1>
           <ul className="list-group mt-5 mb-5">
@@ -116,6 +119,48 @@ function AddPref({ logoutUser, user, isLoggedIn }) {
               <button className="btn btn-primary" onClick={addContact}>
                 Add
               </button>
+            </div>
+          </div>
+        </div>
+        <div className="container mt-5 border-top pt-3">
+          <h2>Select your 3 Preferred Hospitals</h2>
+
+          <div className="row mt-4">
+            <div className="col-lg-4">
+              <div class="form-group">
+                <label for="exampleFormControlSelect1">Preference 1 </label>
+                <select class="form-control" id="exampleFormControlSelect1">
+                  <option>Sharda Hospital</option>
+                  <option>Gharat Hospital</option>
+                  <option>Dhamankar Hospital</option>
+                  <option>Sanjevani Hospital</option>
+                  <option>Apollo Hospital</option>
+                </select>
+              </div>
+            </div>
+            <div className="col-lg-4">
+              <div class="form-group">
+                <label for="exampleFormControlSelect1">Preference 2</label>
+                <select class="form-control" id="exampleFormControlSelect1">
+                  <option>Sharda Hospital</option>
+                  <option>Gharat Hospital</option>
+                  <option>Dhamankar Hospital</option>
+                  <option>Sanjevani Hospital</option>
+                  <option>Apollo Hospital</option>
+                </select>
+              </div>
+            </div>
+            <div className="col-lg-4">
+              <div class="form-group">
+                <label for="exampleFormControlSelect1">Preference 3</label>
+                <select class="form-control" id="exampleFormControlSelect1">
+                  <option>Sharda Hospital</option>
+                  <option>Gharat Hospital</option>
+                  <option>Dhamankar Hospital</option>
+                  <option>Sanjevani Hospital</option>
+                  <option>Apollo Hospital</option>
+                </select>
+              </div>
             </div>
           </div>
         </div>
