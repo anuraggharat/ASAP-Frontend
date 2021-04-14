@@ -7,6 +7,9 @@ import {
   ModalHeader,
   ModalBody,
 } from "reactstrap";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+
 
 export default function BookAppointment({ toggle, modal }) {
 
@@ -16,6 +19,7 @@ export default function BookAppointment({ toggle, modal }) {
     timeslot:"",
     note:""
   })
+  const [startDate, setStartDate] = useState(new Date());
 
 
   const bookAppointment=()=>{
@@ -52,6 +56,16 @@ export default function BookAppointment({ toggle, modal }) {
                     <option value="2">Two</option>
                     <option value="3">Three</option>
                   </select>
+                </div>
+              </div>
+              <div className="row mt-4">
+                <div className="col-lg-3 col-form-label">Select Date</div>
+                <div className="col-lg-9">
+                  <DatePicker
+                    selected={startDate}
+                    onChange={(date) => setStartDate(date)}
+                    className="form-control"
+                  />
                 </div>
               </div>
               <div className="row mt-4">

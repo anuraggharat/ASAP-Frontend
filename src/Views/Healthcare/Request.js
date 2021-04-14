@@ -5,10 +5,15 @@ import { connect } from "react-redux";
 import Map from "../../Components/Map";
 import { Link } from "react-router-dom";
 import moment from "moment";
+import { Redirect } from "react-router-dom";
+
 
 function Request({ logoutUser, user, isLoggedIn, location }) {
   console.log(location);
   const { item } = location;
+   if (!user) {
+     return <Redirect to="/healthcare/login" />;
+   }
   return (
     <div>
       <Navbar username={user.email} logoutUser={logoutUser} normalUser={false} />

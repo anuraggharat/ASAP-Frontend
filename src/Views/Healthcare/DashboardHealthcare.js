@@ -45,7 +45,7 @@ function DashboardHealthcare({ logoutUser, user, isLoggedIn }) {
     getRequests();
   }, []);
 
-  if (!isLoggedIn) {
+  if (!user) {
     return <Redirect to="/healthcare/login" />;
   }
 
