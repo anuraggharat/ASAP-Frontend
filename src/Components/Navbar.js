@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default function Navbar({ logoutUser, username }) {
+export default function Navbar({ logoutUser, username, normalUser }) {
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -35,16 +35,27 @@ export default function Navbar({ logoutUser, username }) {
                 className="dropdown-menu w-100"
                 aria-labelledby="dropdownMenuButton"
               >
-                <li>
-                  <Link className="dropdown-item" to="/user/preferences">
-                    Preferences
-                  </Link>
-                </li>
-                <li>
-                  <Link className="dropdown-item" to="/user/services">
-                    Services
-                  </Link>
-                </li>
+                {normalUser && (
+                  <>
+                    <li>
+                      <Link className="dropdown-item" to="/user/preferences">
+                        Preferences
+                      </Link>
+                    </li>
+                    <li>
+                      <Link className="dropdown-item" to="/user/services">
+                        Services
+                      </Link>
+                    </li>
+                  </>
+                )}
+                {!normalUser && (
+                  <li>
+                    <Link className="dropdown-item" to="/healthcare/appointments">
+                      Appointments
+                    </Link>
+                  </li>
+                )}
                 <li>
                   <button className="dropdown-item" onClick={logoutUser}>
                     Logout

@@ -11,7 +11,7 @@ function Request({ logoutUser, user, isLoggedIn, location }) {
   const { item } = location;
   return (
     <div>
-      <Navbar username={user.email} logoutUser={logoutUser} />
+      <Navbar username={user.email} logoutUser={logoutUser} normalUser={false} />
 
       <div className="p-5">
         <div className="container">

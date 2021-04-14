@@ -52,7 +52,7 @@ function DashboardHealthcare({ logoutUser, user, isLoggedIn }) {
   console.log(req);
   return (
     <>
-      <Navbar username={user.email} logoutUser={logoutUser} />
+      <Navbar username={user.email} logoutUser={logoutUser} normalUser={false} />
       <div className="container-fluid pb-5">
         <div className="text-center w-100">
           <h1 className="mt-4">{user.name}</h1>

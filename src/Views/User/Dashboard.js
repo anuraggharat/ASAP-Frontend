@@ -9,7 +9,7 @@ import Navbar from "../../Components/Navbar";
 import { logoutUser } from "../../Redux/Actions/user";
 import api from "../../utils/api";
 import { GiHealthNormal } from "react-icons/gi";
-import UploadDoc from "../../Components/UploadDoc";
+import BookAppointment from "../../Components/BookAppointment";
 
 function Dashboard({ logoutUser, user, isLoggedIn }) {
   const [location, setLocation] = useState({
@@ -97,16 +97,9 @@ function Dashboard({ logoutUser, user, isLoggedIn }) {
   }
   return (
     <div>
-      <Navbar logoutUser={logoutUser} username={user.email} />
+      <Navbar logoutUser={logoutUser} username={user.email} normalUser={true} />
       <div className="container mt-5 pb-5">
         <div className="d-flex w-50 mx-auto justify-content-around  flex-md-row flex-column">
-          <button
-            onClick={toggle}
-            className="btn btn-lg btn-success shadow-lg danger-button my-3"
-          >
-            <i class="bi bi-file-bar-graph-fill"></i>
-            Upload Report
-          </button>
           <button
             className="btn btn-lg btn-danger shadow-lg danger-button my-3"
             onClick={(e) => sendRequest(e)}
@@ -114,12 +107,15 @@ function Dashboard({ logoutUser, user, isLoggedIn }) {
             <i className="bi bi-exclamation-circle "></i>
             EMERGENCY
           </button>
-          <button className="btn btn-lg btn-info shadow-lg danger-button my-3">
+          <button
+            onClick={toggle}
+            className="btn btn-lg btn-info shadow-lg danger-button my-3"
+          >
             <GiHealthNormal />
             Appointment
           </button>
         </div>
-        <UploadDoc toggle={toggle} modal={modal} />
+        <BookAppointment toggle={toggle} modal={modal} />
         <div className="container mt-3">
           {hospital && (
             <div className="alert alert-info" role="alert">

@@ -12,7 +12,7 @@ import { FaClinicMedical } from "react-icons/fa";
 function Services({ logoutUser, user, isLoggedIn }) {
   return (
     <div>
-      <Navbar logoutUser={logoutUser} username={user.email} />
+      <Navbar logoutUser={logoutUser} username={user.email} normalUser={true} />
       <div className="container mt-5 pb-5">
         <div className="container mb-3">
           <Link to="/user/home">Go Back</Link>
