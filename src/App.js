@@ -14,6 +14,7 @@ import Error from "./Views/Error";
 import Request from "./Views/Healthcare/Request";
 import AddPref from "./Views/User/AddPref";
 import Services from "./Views/User/Services";
+import Appointments from "./Views/Healthcare/Appointments";
 toast.configure();
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
             <Route path="/healthcare/signup" component={SignupHealthcare} />
             <Route path="/healthcare/home" component={DashboardHealthcare} />
             <Route path="/healthcare/request" component={Request} />
+            <Route path="/healthcare/appointments" component={Appointments} />
 
             <Route path="*" component={Error} />
           </Switch>

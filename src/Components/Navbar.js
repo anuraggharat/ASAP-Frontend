@@ -51,7 +51,10 @@ export default function Navbar({ logoutUser, username, normalUser }) {
                 )}
                 {!normalUser && (
                   <li>
-                    <Link className="dropdown-item" to="/healthcare/appointments">
+                    <Link
+                      className="dropdown-item"
+                      to="/healthcare/appointments"
+                    >
                       Appointments
                     </Link>
                   </li>
