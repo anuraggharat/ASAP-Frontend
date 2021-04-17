@@ -158,7 +158,7 @@ function Dashboard({ logoutUser, user, isLoggedIn }) {
                 </div>
                 <div className="col-lg-4 my-2 col-sm-6">
                   AVAILABLE BEDS:<br></br>
-                  {beds}
+                  {hospital.beds}
                 </div>
               </div>
               <div>
