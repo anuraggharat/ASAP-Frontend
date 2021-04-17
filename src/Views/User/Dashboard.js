@@ -109,6 +109,8 @@ function Dashboard({ logoutUser, user, isLoggedIn }) {
   if (!isLoggedIn) {
     return <Redirect to="/user/login" />;
   }
+
+  console.log(user)
   return (
     <div>
       <Navbar logoutUser={logoutUser} username={user.email} normalUser={true} />
