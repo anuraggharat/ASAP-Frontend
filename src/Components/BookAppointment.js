@@ -10,7 +10,6 @@ import {
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import api from "../utils/api";
-import user from "../Redux/Reducers/user";
 
 
 export default function BookAppointment({ toggle, modal,hospitalsList ,user,location}) {
@@ -22,7 +21,6 @@ export default function BookAppointment({ toggle, modal,hospitalsList ,user,loca
     reason:""
   })
   const [startDate, setStartDate] = useState(new Date());
-console.log(hospitalsList)
 
   const bookAppointment=async()=>{
     try {
@@ -38,8 +36,13 @@ console.log(hospitalsList)
       const jsonbody = JSON.stringify(body)
       const res = await api.post("/appointment/booking",jsonbody);
       console.log(res)
+      if(res.data.success){
+        toast.success("Appointment Booked")
+        toast.info("Wait for confirmation")
+      }
     } catch (error) {
       console.log(error)
+      toast.warning("Unable to book appointment")
     }
   }
 

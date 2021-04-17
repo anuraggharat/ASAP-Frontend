@@ -6,6 +6,7 @@ import Navbar from "../../Components/Navbar";
 import { logoutUser } from "../../Redux/Actions/healthcare";
 import api from "../../utils/api";
 import ListComp from "../../Components/ListComp";
+import { FaCheck, FaCheckCircle } from "react-icons/fa";
 
 function Appointments({ logoutUser, user, isLoggedIn }) {
   const [req, setReq] = useState([]);
@@ -15,16 +16,16 @@ function Appointments({ logoutUser, user, isLoggedIn }) {
   const getRequests = async () => {
     setLoading(true);
     try {
-      const myData = {
-        id: user._id,
-      };
-      const body = JSON.stringify(myData);
-      const { data } = await api.post("/request/getrequests", body);
+     
+      const { data } = await api.get(
+        `/appointment/getappointments/${user._id}`
+        
+      );
       console.log(data);
       if (data.success) {
         if (data.count === 0) {
           console.log("hitted");
-          toast.info("No requests scheduled");
+          toast.info("No appointments scheduled");
           await setReq([]);
           setLoading(false);
         } else {
@@ -41,6 +42,17 @@ function Appointments({ logoutUser, user, isLoggedIn }) {
       setLoading(false);
     }
   };
+
+  const changeStatus=async(id)=>{
+    const stat = "Confirmed"
+    const { data } = await api.get(
+        `/appointment/update/${id}/${stat}`
+      );
+      if(data.success){
+        toast.success("Appointment Updated")
+        getRequests()
+      }
+  }
 
   useEffect(() => {
     getRequests();
@@ -63,12 +75,12 @@ function Appointments({ logoutUser, user, isLoggedIn }) {
         <div className="w-100 min-vh-100 mt-4">
           <div className="w-100 mt-2">
             <div className="list-group shadow-sm">
-              <div className="list-group-item list-group-item-action bg-light border-bottom-0">
+              <div className="list-group-item list-group-item-action bg-white border-bottom">
                 <div className="row">
-                  <div className="col-lg-3">
+                  <div className="col-lg-2">
                     <h5>Patient Name</h5>
                   </div>
-                  <div className="col-lg-3">
+                  <div className="col-lg-2">
                     <h5>Contact Number</h5>
                   </div>
                   <div className="col-lg-2">
@@ -78,15 +90,60 @@ function Appointments({ logoutUser, user, isLoggedIn }) {
                     <h5>Date</h5>
                   </div>
                   <div className="col-lg-2">
-                    <h5>Time</h5>
+                    <h5>Note</h5>
+                  </div>
+                  <div className="col-lg-2">
+                    <h5>Status</h5>
                   </div>
                 </div>
               </div>
             </div>
             <div className="list-group list-group-rev shadow-sm">
-              {/* {!loading &&
+              {!loading &&
                 req &&
-                req.map((item, index) => <ListComp key={index} item={item} />)} */}
+                req.map((item, index) => {
+                  let d = new Date(item.date);
+
+                  return (
+                    <div
+                      key={index}
+                      className="list-group-item list-group-item-action bg-light border-bottom-0 border-top-0"
+                    >
+                      <div className="row">
+                        <div className="col-lg-2">
+                          <p>{item.name}</p>
+                        </div>
+                        <div className="col-lg-2">
+                          <p>{item.phoneNo}</p>
+                        </div>
+                        <div className="col-lg-2">
+                          <p>{item.gender}</p>
+                        </div>
+                        <div className="col-lg-2">
+                          <p>
+                            {d.getDay()}
+                            {"/"}
+                            {d.getMonth()}
+                            {"/"}
+                            {d.getFullYear()}
+                          </p>
+                          <p>{item.time_slot}</p>
+                        </div>
+                        <div className="col-lg-2">
+                          <p>{item.reason}</p>
+                        </div>
+                        <div className="col-lg-1 ">
+                          <p>{item.stat}</p>
+                        </div>
+                        <div className="col-lg-1">
+                          <button className="btn btn-success" onClick={()=>changeStatus(item._id)}>
+                            <FaCheck />
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
             </div>
           </div>
         </div>
