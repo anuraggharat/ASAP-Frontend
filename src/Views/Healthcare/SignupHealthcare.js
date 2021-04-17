@@ -16,6 +16,7 @@ function SignupHealthcare({ registerUser, isLoggedIn, user }) {
     main_doc_name: "",
     latitude: "",
     xyz: "",
+    beds:""
   });
 
   console.log("====================================");
@@ -23,7 +24,7 @@ function SignupHealthcare({ registerUser, isLoggedIn, user }) {
 
   console.log("====================================");
   const [redirect, setRedirect] = useState(false);
-  const { email, password, name, contact, main_doc_name, type } = values;
+  const { email, password, name, contact, main_doc_name, type,beds } = values;
   const [loading, setLoading] = useState(false);
   //handleChange function to set input values
   const handleChange = (e) => {
@@ -128,7 +129,7 @@ function SignupHealthcare({ registerUser, isLoggedIn, user }) {
                 />
               </div>
               <div className="mb-3 row">
-                <div className="col-6">
+                <div className="col-5">
                   <label htmlFor="dob" className="form-label">
                     Name of Doctor
                   </label>
@@ -142,7 +143,7 @@ function SignupHealthcare({ registerUser, isLoggedIn, user }) {
                     onChange={(e) => handleChange(e)}
                   />
                 </div>
-                <div className="col-6">
+                <div className="col-5">
                   <label htmlFor="gender" className="form-label">
                     Healthcare Type
                   </label>
@@ -158,6 +159,20 @@ function SignupHealthcare({ registerUser, isLoggedIn, user }) {
                     <option value="Emergency">Emergency</option>
                     <option value="General">General</option>
                   </select>
+                </div>
+                <div className="col-2">
+                  <label htmlFor="gender" className="form-label">
+                    No of Beds
+                  </label>
+                  <input
+                    type="number"
+                    className="form-control"
+                    id="beds"
+                    placeholder="Beds"
+                    name="beds"
+                    value={beds}
+                    onChange={(e) => handleChange(e)}
+                  />
                 </div>
               </div>
               <div className="mb-3">

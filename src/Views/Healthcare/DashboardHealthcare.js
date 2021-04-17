@@ -4,12 +4,15 @@ import { Redirect } from "react-router-dom";
 import { toast } from "react-toastify";
 import Navbar from "../../Components/Navbar";
 import { logoutUser } from "../../Redux/Actions/healthcare";
+import {BsPlus} from 'react-icons/bs'
+import {BiMinus} from 'react-icons/bi'
 import api from "../../utils/api";
 import ListComp from "../../Components/ListComp";
 
 function DashboardHealthcare({ logoutUser, user, isLoggedIn }) {
   const [req, setReq] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [beds,setBeds]=useState(null)
 
   const getRequests = async () => {
     setLoading(true);
@@ -41,8 +44,40 @@ function DashboardHealthcare({ logoutUser, user, isLoggedIn }) {
     }
   };
 
+  const addBeds=async()=>{
+    const data =await  api.get(`/hospital/addbed/${user._id}`);
+    if (data.data.success){
+      toast.info("Beds Added")
+      bedInfo()
+    }
+    else{
+      toast.warning("cannot update")
+    }
+  }
+  
+  const removeBeds = async () => {
+    const data = await api.get(`/hospital/removebed/${user._id}`);
+    console.log(data.data)
+    if (data.data.success) {
+      toast.info("Beds removed");
+      bedInfo()
+    }
+    else {
+    toast.info("cannot add beds");
+
+    }
+  };
+
+
+  const bedInfo=async()=>{
+    const data = await api.get(`/hospital/getbeds/${user._id}`);
+    console.log(data.data.data)
+    setBeds(data.data.data)
+  }
+
   useEffect(() => {
     getRequests();
+    bedInfo()
   }, []);
 
   if (!user) {
@@ -52,12 +87,29 @@ function DashboardHealthcare({ logoutUser, user, isLoggedIn }) {
   console.log(req);
   return (
     <>
-      <Navbar username={user.email} logoutUser={logoutUser} normalUser={false} />
+      <Navbar
+        username={user.email}
+        logoutUser={logoutUser}
+        normalUser={false}
+      />
       <div className="container-fluid pb-5">
         <div className="text-center w-100">
           <h1 className="mt-4">{user.name}</h1>
         </div>
         <div className="w-100 min-vh-100 mt-4">
+          <div className="w-100 mt-2 d-flex flex-row justify-content-end">
+            <div class="btn-group" role="group" aria-label="Basic example">
+              <button type="button" class="btn btn-primary" onClick={()=>addBeds()}>
+                <BsPlus />
+              </button>
+              <button type="button" class="btn btn-secondary">
+                {beds}
+              </button>
+              <button type="button" class="btn btn-warning" onClick={()=>removeBeds()}>
+                <BiMinus />
+              </button>
+            </div>
+          </div>
           <div className="w-100 mt-2">
             <div className="list-group shadow-sm">
               <div className="list-group-item list-group-item-action bg-light border-bottom-0">
