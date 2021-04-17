@@ -9,21 +9,44 @@ import {
 } from "reactstrap";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import api from "../utils/api";
+import user from "../Redux/Reducers/user";
 
 
-export default function BookAppointment({ toggle, modal }) {
+export default function BookAppointment({ toggle, modal,hospitalsList ,user,location}) {
 
   const [values,setValues]=useState({
     name:"",
     hospital:"",
     timeslot:"",
-    note:""
+    reason:""
   })
   const [startDate, setStartDate] = useState(new Date());
+console.log(hospitalsList)
 
+  const bookAppointment=async()=>{
+    try {
+      const body = {
+        lat: location.latitude,
+        long:location.longitude,
+        uid:user._id,
+        hname:values.hospital,
+        dt:startDate,
+        ts:values.timeslot,
+        reason:values.reason
+      };
+      const jsonbody = JSON.stringify(body)
+      const res = await api.post("/appointment/booking",jsonbody);
+      console.log(res)
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
-  const bookAppointment=()=>{
-    toast.info("done")
+  console.log(values,"values")
+
+  const handleChange=(e)=>{
+    setValues({...values,[e.target.name]:e.target.value})
   }
 
 
@@ -41,6 +64,9 @@ export default function BookAppointment({ toggle, modal }) {
                     type="text"
                     className="form-control"
                     placeholder="Your Name"
+                    name="name"
+                    value={values.name}
+                    onChange={(e) => handleChange(e)}
                   />
                 </div>
               </div>
@@ -50,11 +76,17 @@ export default function BookAppointment({ toggle, modal }) {
                   <select
                     className="form-control w-100"
                     aria-label="Default select example"
+                    value={values.hospital}
+                    onChange={(e) => handleChange(e)}
+                    name="hospital"
                   >
-                    <option selected>Open this select menu</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
+                    <option>Choose hospital</option>
+                    {hospitalsList &&
+                      hospitalsList.map((item) => (
+                        <option key={item.name} value={item.name}>
+                          {item.name} ({item.type})
+                        </option>
+                      ))}
                   </select>
                 </div>
               </div>
@@ -74,8 +106,11 @@ export default function BookAppointment({ toggle, modal }) {
                   <select
                     className="form-control w-100 ml-auto"
                     aria-label="Default select example"
+                    value={values.timeslot}
+                    onChange={(e) => handleChange(e)}
+                    name="timeslot"
                   >
-                    <option selected>Select the time slot</option>
+                    <option defaultValue={values.timeslot}>Select the time slot</option>
                     <option value="10am - 11am">10am - 11am</option>
                     <option value="11am - 12am">11am - 12am</option>
                     <option value="12pm - 1pm">12pm - 1pm</option>
@@ -93,12 +128,14 @@ export default function BookAppointment({ toggle, modal }) {
                   <input
                     type="text"
                     className="form-control"
-                    placeholder="Mention your note"
-                    aria-label="Username"
-                    aria-describedby="addon-wrapping"
+                    placeholder="Your Note"
+                    name="reason"
+                    value={values.reason}
+                    onChange={(e) => handleChange(e)}
                   />
                 </div>
               </div>
+              
               <div className="container">
                 <Button
                   color="primary"

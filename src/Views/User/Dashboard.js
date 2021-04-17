@@ -24,9 +24,20 @@ function Dashboard({ logoutUser, user, isLoggedIn }) {
     maximumAge: 0,
   };
 
+  const [hospitals,setHospitals] = useState([])
   const [modal, setModal] = useState(false);
 
   const toggle = () => setModal(!modal);
+
+  const getHospitals=async()=>{
+    const res = await api.get("/listhospital/");
+    if(res.data.success){
+      setHospitals(res.data.data)
+    }
+    else{
+      setHospitals([])
+    }
+  }
 
   const sendRequest = async (e) => {
     setHospital(null);
@@ -73,8 +84,11 @@ function Dashboard({ logoutUser, user, isLoggedIn }) {
     }
   };
 
+
+
   useEffect(() => {
     getLocation();
+    getHospitals()
   }, []);
 
   function handleLocationError(error) {
@@ -115,7 +129,7 @@ function Dashboard({ logoutUser, user, isLoggedIn }) {
             Appointment
           </button>
         </div>
-        <BookAppointment toggle={toggle} modal={modal} />
+        <BookAppointment toggle={toggle} modal={modal} user={user}  hospitalsList={hospitals} location={location}/>
         <div className="container mt-3">
           {hospital && (
             <div className="alert alert-info" role="alert">
