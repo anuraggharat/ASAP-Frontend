@@ -13,13 +13,14 @@ function Signup({ isLoggedIn, registerUser, user }) {
     gender: "",
     dob: "",
     email: "",
+    history:"",
     password: "",
   });
   const [redirect, setRedirect] = useState(false);
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const { email, password, name, phoneNo, gender, dob } = values;
+  const { email, password, name, phoneNo, gender, dob,history } = values;
 
   //handleChange function to set input values
   const handleChange = (e) => {
@@ -135,6 +136,19 @@ function Signup({ isLoggedIn, registerUser, user }) {
                     <option value="Other">Other</option>
                   </select>
                 </div>
+              </div>
+              <div className="mb-3">
+                <label htmlFor="password" className="form-label">
+                  History
+                </label>
+                <textarea
+                  type="password"
+                  className="form-control"
+                  id="history"
+                  name="history"
+                  value={history}
+                  onChange={(e) => handleChange(e)}
+                />
               </div>
               <div className="mb-3">
                 <label htmlFor="password" className="form-label">
