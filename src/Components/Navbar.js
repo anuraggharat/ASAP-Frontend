@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 export default function Navbar({ logoutUser, username, normalUser }) {
   return (
     <>
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+      <nav className="navbar navbar-expand-lg navbar-light bg-light shadow">
         <div className="container-fluid">
           <a className="navbar-brand" href="#">
             ASAP
@@ -42,11 +42,11 @@ export default function Navbar({ logoutUser, username, normalUser }) {
                         Preferences
                       </Link>
                     </li>
-                    <li>
+                    {/* <li>
                       <Link className="dropdown-item" to="/user/services">
                         Services
                       </Link>
-                    </li>
+                    </li> */}
                   </>
                 )}
                 {!normalUser && (

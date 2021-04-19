@@ -21,7 +21,7 @@ function Login({ isLoggedIn, user, loginUser }) {
 
   //value submission function
   const submitValues = async (e) => {
-    await setLoading(true);
+    setLoading(true);
     e.preventDefault();
     if (!email && !password) {
       toast.error("Values can't be empty");
@@ -82,8 +82,14 @@ function Login({ isLoggedIn, user, loginUser }) {
                 />
               </div>
 
-              <button type="submit" className="btn  btn-primary btn-block">
-                Submit
+              <button disabled={loading} type="submit" className="btn  btn-primary btn-block">
+                {loading ? (
+                  <div className="spinner-border text-white" role="status">
+                    <span className="sr-only">Loading...</span>
+                  </div>
+                ) : (
+                  "Submit"
+                )}
               </button>
             </form>
           </div>

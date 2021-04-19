@@ -58,9 +58,9 @@ function Appointments({ logoutUser, user, isLoggedIn }) {
     getRequests();
   }, []);
 
-//   if (!user) {
-//     return <Redirect to="/healthcare/login" />;
-//   }
+  if (!user) {
+    return <Redirect to="/healthcare/login" />;
+  }
   return (
     <>
       <Navbar

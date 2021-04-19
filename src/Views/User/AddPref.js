@@ -16,7 +16,7 @@ function AddPref({ logoutUser, user, isLoggedIn }) {
     relative1_no: "",
     relative2: "",
     relative2_no: "",
-    preferred_hosp:""
+    preferred_hosp: "",
   });
   const [hospitals, setHospitals] = useState([]);
 
@@ -45,6 +45,15 @@ function AddPref({ logoutUser, user, isLoggedIn }) {
     } else {
       setHospitals([]);
     }
+    if (user.relative1_no) {
+      setValues({
+        relative1: user.relative1,
+        relative1_no: user.relative1_no,
+        relative2: user.relative2,
+        relative2_no: user.relative2_no,
+        preferred_hosp: user.preferred_hosp,
+      });
+    }
   };
 
   console.log(values);
@@ -59,6 +68,10 @@ function AddPref({ logoutUser, user, isLoggedIn }) {
   if (!isLoggedIn) {
     return <Redirect to="/user/login" />;
   }
+
+
+  
+
 
   return (
     <div>
