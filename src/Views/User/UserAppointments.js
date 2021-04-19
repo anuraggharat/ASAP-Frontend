@@ -29,7 +29,9 @@ function UserAppointments({ logoutUser, user, isLoggedIn }) {
 fetchData()
   },[])
 
-
+if (!user) {
+  return <Redirect to="/healthcare/login" />;
+}
 
   return (
     <div>
