@@ -121,7 +121,7 @@ function Appointments({ logoutUser, user, isLoggedIn }) {
                         </div>
                         <div className="col-lg-2">
                           <p>
-                            {d.getDay()}
+                            {d.getDate()}
                             {"/"}
                             {d.getMonth()}
                             {"/"}

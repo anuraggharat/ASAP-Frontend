@@ -42,11 +42,11 @@ export default function Navbar({ logoutUser, username, normalUser }) {
                         Preferences
                       </Link>
                     </li>
-                    {/* <li>
-                      <Link className="dropdown-item" to="/user/services">
-                        Services
+                    <li>
+                      <Link className="dropdown-item" to="/user/appointments">
+                        Appointments
                       </Link>
-                    </li> */}
+                    </li>
                   </>
                 )}
                 {!normalUser && (

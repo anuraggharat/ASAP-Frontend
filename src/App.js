@@ -13,8 +13,8 @@ import { toast } from "react-toastify";
 import Error from "./Views/Error";
 import Request from "./Views/Healthcare/Request";
 import AddPref from "./Views/User/AddPref";
-import Services from "./Views/User/Services";
-import Appointments from "./Views/Healthcare/Appointments";
+  import Appointments from "./Views/Healthcare/Appointments";
+import UserAppointments from "./Views/User/UserAppointments";
 toast.configure();
 
 function App() {
@@ -30,7 +30,7 @@ function App() {
             <Route path="/user/signup" component={Signup} />
             <Route path="/user/home" component={Dashboard} />
             <Route path="/user/preferences" component={AddPref} />
-            <Route path="/user/services" component={Services} />
+            <Route path="/user/appointments" component={UserAppointments} />
             {/* Healthcare worker routes */}
             <Route path="/healthcare/login" component={LoginHealthcare} />
             <Route path="/healthcare/signup" component={SignupHealthcare} />
